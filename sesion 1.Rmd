@@ -1,0 +1,76 @@
+---
+title: "R sesion 1"
+author: "Oscar Medina Contreras"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+# Install devtools from CRAN
+install.packages("rmarkdown", repos = "http://cran.us.r-project.org")
+```
+
+<span style="color: blue;">Encabezados</span>
+
+# Encabezado 1
+## Encabezado 2
+### Encabezado 3
+#### Encabezado 4
+##### Encabezado 5
+###### Encabezado 6
+
+Si no quieren que el texto tenga formato, poner comilla inversa para que lo lea como código
+
+`# Encabezado`
+
+*Tip*: Insertar una linea en blanco entre cada linea de código para separarlas en el archivo generado. Siempre dejar al menos una linea en blanco entre elementos de formato adyacentes, pero diferentes, como encabezado y texto.
+
+<span style="color: blue;">Listas</span>
+
+### Listas desordenadas ###
+
+* Elemento 1
+- Elemento 2
+  * Elemento 2a (indentar 1 tab)
++ Elemento 3
+
+### Listas numeradas ###
+
+1. Elemento 1
+1. Elemento 2
+4. Elemento 3
+27. Elemento 4
+
+Los números autoincrementan, así que solo con usar 1 es suficiente. Si borran o agregan elementos no hay que preocuparse por el orden!!
+
+También se pueden mezclar listas numeradas y desordenadas
+
+1. Elemento numerado 1
+1. Elemento numerado 2
+    * Elemento 1 (indentar 2 tab)
+    * Elemento 2
+    
+<span style="color: blue;">Formato</span>
+
+* cursiva (`*`)(`_`) *esto* or _esto_ 
+* negritas (`**`)(`__`) **esto** or __esto__
+* código con comilla inversa **`**
+* Subscript en tildes (`~`) H~2~O
+* Superscript en intercalación (`^`) R^2^
+* cambiar de línea con diagonal inversa al final (`\`)
+
+<span style="color: blue;">Links</span>
+
+Pueden ser páginas o imágenes
+
+links directos: <https://omedinac.github.io/OMC.Lab/>.
+
+links con frase: OMC [Lab](https://omedinac.github.io/OMC.Lab/)
+
+![***alumnos felices***](https://omedinac.github.io/OMC.Lab/images/estudiantes.png)

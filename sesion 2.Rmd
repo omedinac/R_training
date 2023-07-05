@@ -1,0 +1,53 @@
+---
+title: "R sesion 2"
+author: "Oscar Medina Contreras"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Programa
+
+```{r}
+
+# install package from CRAN
+install.packages("pcr", repos = "http://cloud.r-project.org")
+
+# load required libraries
+library(pcr)
+```
+
+## Analisis
+
+Este ejemplo localiza un archivo con datos de CT de 2 genes en 12 muestras diferentes. Después realiza un análisis rápido para obtener la expresión de un gen blanco (c-myc) normalizado por un control (GAPDH) in las muestras de riñon con respecto a las muestras de cerebro. El paquete pcr_analyze permite utilizar diferentes métodos, pero el método default es ‘delta_delta_ct’ (ΔΔCT).
+
+```{r}
+# default mode delta_delta_ct
+## locate and read raw ct data
+fl <- system.file('extdata', 'ct1.csv', package = 'pcr')
+ct1 <- read.csv(fl)
+
+## add grouping variable
+group_var <- rep(c('brain', 'kidney'), each = 6)
+
+# calculate all values and errors in one step
+## mode == 'separate_tube' default
+res <- pcr_analyze(ct1,
+                   group_var = group_var,
+                   reference_gene = 'GAPDH',
+                   reference_group = 'brain')
+  
+res
+```
+
+El resultado de `pcr_analyze` se explica en la documentación de la función `?pcr_analyze` y el método que usa `?pcr_ddct`.
+En resúmen, el resultado incluye en CT de c-myc `normalizado` con el control GAPDH, el valor `calibrado` de c-myc en el riñon relativo al cerebro, y la `expresión relativa `final de c-myc. Además, `error`, `minimo` y `máximo` del intervalo.
+
+## Notas
+
+Este análisis considera una eficiencia de amplificación perfecta. Para confirmarlo existe una función `pcr_assess` que calcula esta eficiencia.

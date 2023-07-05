@@ -1,0 +1,63 @@
+---
+title: "R sesion 0"
+author: "Oscar Medina Contreras"
+date: "`r Sys.Date()`"
+output:
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Prerrequisitos
+
+Descargar e instalar [R](https://cran.r-project.org/bin/windows/base/R-4.2.3-win.exe) y [R Studio](https://download1.rstudio.org/electron/windows/RStudio-2023.03.0-386.exe)
+
+## Markdown
+Este es un documento de R Markdown. Markdown es un formato de sintaxis simple para crear documentos HTML, PDF, y Word.
+
+Pueden incluir texto y secciones de código R como esta:
+
+```{r cars}
+summary(cars)
+```
+
+## Gráficas
+
+También se pueden incluir gráficas:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+## Secciones
+- YAML
+- Código
+- Texto
+- Encabezados
+
+## Paquetes
+
+**actualizar**
+
+## Comandos
+
+El botón **Knit** genera un documento que incluye tanto contenido como el resultado de cualquier sección de código R incluido en el documento. 
+
+# Códigos
+
+`#` Para insertar texto que describa el comando\
+`install.packages` para instalar paquetes\
+`("devtools")` nombre del paquete, es importante que este entre comillas y dentro de parentesis \
+`repos = "http://cran.us.r-project.org"` el repositorio desde donde se va a instalar, este es el principal y donde se encuentra todo (solamente devtools utiliza otro)\
+`install.packages("devtools", repos = "http://cran.us.r-project.org")` todos los argumentos van dentro de los parentesis\
+`cat("ya terminé")` texto de salida, util para saber que terminó de correr el código
+
+
+```{r}
+# Instalar devtools desde CRAN
+install.packages("devtools", repos = "http://cran.us.r-project.org")
+cat("ya terminé")
+```
+
