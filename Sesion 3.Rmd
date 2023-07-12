@@ -1,0 +1,83 @@
+---
+title: UMAP
+author: Oscar Medina Contreras"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## UMAP
+
+```{r}
+head(vax_final, 3)
+```
+
+Las primeras columnas contienen datos, todas tienen el mismo prefijo **h.** La última columna contiene las etiquetas de los grupos. Separar estos datos.
+
+```{r}
+vax.data <- vax_final[, grep("h", colnames(vax_final))]
+vax.labels <- vax_final[, "status"]
+```
+
+### Proyección
+
+Cargar el paquete `umap` y aplicar la transformación UMAP.
+
+```{r iris.umap}
+library(umap)
+vax.umap <- umap(vax.data)
+```
+
+El resultado es un objeto y se puede imprimir el resumen del resultado.
+
+```{r umap.print}
+vax.umap
+```
+
+El componente principal del objeto es 'layout', el cual contiene una matriz con coordenadas.
+
+```{r umap.layout}
+head(vax.umap$layout, 3)
+```
+
+Estas coordenadas pueden utilizarse para visualizar el grupo de datos. Se utiliza la función personalizada `plot.iris` (El código debe **antes** de graficar el analisis).
+
+
+```{r, fig.width=3.2, fig.height=3.2, dpi=150}
+plot.iris(vax.umap, vax.labels)
+```
+
+
+## plot.iris
+
+```{r, echo=FALSE}
+## block with some startup/background objects functions
+library(umap)
+iris.colors <- c("#ff7f00", "#e377c2", "#17becf")
+plot.iris <- function(x, labels,
+         main="A UMAP visualization of the HPV vax group",
+         pad=0.02, cex=0.65, pch=19,
+         cex.main=1, cex.legend=1) {
+
+  layout <- x$layout
+  par(mar=c(0.2,0.7,1.2,0.7), ps=10)
+  xylim <- range(layout)
+  xylim <- xylim + ((xylim[2]-xylim[1])*pad)*c(-0.5, 0.5)
+  plot(xylim, xylim, type="n", axes=F, frame=F)
+  xylim <- par()$usr
+  rect(xylim[1], xylim[1], xylim[2], xylim[2], border="#aaaaaa", lwd=0.2)
+  points(layout[,1], layout[,2], col=iris.colors[as.integer(labels)],
+         cex=cex, pch=pch)
+  mtext(side=3, main, cex=cex.main)
+
+  labels.u <- unique(labels)
+  legend("topleft", legend=as.character(labels.u),
+         col=iris.colors[as.integer(labels.u)],
+         bty="n", pch=pch, cex=cex.legend)
+}
+
+set.seed(123456)
+```
